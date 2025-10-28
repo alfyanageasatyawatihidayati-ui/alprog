@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<!-- Deklarasi tipe dokumen HTML5 -->
+<html lang="id">
+<!-- Elemen utama yang membungkus seluruh halaman HTML -->
+<!-- Atribut lang="id" menunjukkan bahasa halaman (Indonesia) -->
+<head>
+    <!-- Bagian "kepala" halaman, berisi metadata dan pengaturan -->
+    
+    <meta charset="UTF-8">
+    <!-- Menentukan encoding karakter agar teks tampil dengan benar (UTF-8 mendukung semua karakter) -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Agar tampilan responsif di perangkat mobile -->
+    
+    <title>Sistem Informasi Statistik Kabupaten Bantul</title>
+    <!-- Judul yang muncul di tab browser -->
+    
+    <style>
+    /* CSS untuk mengatur tampilan halaman */
+    
+    * {
+        /* Selector universal (*) = berlaku untuk semua elemen */
+        margin: 0;
+        /* Hilangkan margin default = jarak luar elemen jadi 0 */
+        padding: 0;
+        /* Hilangkan padding default = jarak dalam elemen jadi 0 */
+        box-sizing: border-box;
+        /* box-sizing: border-box = ukuran elemen sudah termasuk padding dan border */
+        /* Jadi lebar elemen tidak bertambah saat dikasih padding/border */
+    }
+    
+    body {
+        /* Styling untuk keseluruhan body halaman */
+        font-family: Arial, sans-serif;
+        /* Font Arial, jika tidak ada gunakan sans-serif */
+        background-image: url('Kasongan.jpg');
+        /* Gambar background dari file 'Kasongan.jpg' */
+        background-size: cover;
+        /* cover = gambar menutupi seluruh area layar (di-zoom jika perlu) */
+        background-position: center;
+        /* Posisi gambar di tengah layar */
+        background-attachment: fixed;
+        /* fixed = background tetap diam saat halaman di-scroll (tidak ikut bergerak) */
+        background-repeat: no-repeat;
+        /* no-repeat = gambar tidak diulang/ditile */
+        padding: 0;
+        /* Tidak ada padding (jarak dalam) */
+        margin: 0;
+        /* Tidak ada margin (jarak luar) */
+        min-height: 100vh;
+        /* Minimal tinggi body = 100vh (100% tinggi viewport/layar) */
+        /* vh = viewport height, jadi body minimal setinggi layar */
+        position: relative;
+        /* Posisi relatif = diperlukan agar body::before bisa position absolute */
+    }
+    
+    body::before {
+        /* Pseudo-element untuk membuat overlay (lapisan gelap) di atas background */
+        /* ::before = elemen virtual yang muncul SEBELUM konten body */
+        content: "";
+        /* content: "" = wajib ada untuk pseudo-element (meski kosong) */
+        position: absolute;
+        /* Posisi absolut = elemen ini menutupi seluruh area body */
+        top: 0;
+        /* Jarak dari atas = 0 (menempel di atas) */
+        left: 0;
+        /* Jarak dari kiri = 0 (menempel di kiri) */
+        right: 0;
+        /* Jarak dari kanan = 0 (menempel di kanan) */
+        bottom: 0;
+        /* Jarak dari bawah = 0 (menempel di bawah) */
+        /* Kombinasi top, left, right, bottom = 0 membuat overlay menutupi seluruh body */
+        background: rgba(139, 69, 19, 0.5);
+        /* rgba = Red Green Blue Alpha (transparansi) */
+        /* rgba(139, 69, 19, 0.5) = warna coklat dengan transparansi 50% */
+        /* 139 = nilai merah, 69 = nilai hijau, 19 = nilai biru */
+        /* 0.5 = 50% transparan (0 = transparan penuh, 1 = tidak transparan) */
+        /* Overlay ini bikin background foto tidak terlalu terang, jadi teks tetap terbaca */
+        z-index: 0;
+        /* z-index: 0 = layer paling belakang */
+        /* Angka lebih kecil = lebih di belakang */
+        pointer-events: none;
+        /* pointer-events: none = overlay tidak menghalangi klik mouse */
+        /* Jadi klik mouse bisa "tembus" overlay ini */
+    }
+    
+    .container {
+        /* Container utama yang membungkus seluruh konten */
+        width: 650px;
+        /* Lebar tetap 650 pixel */
+        margin: 20px auto;
+        /* margin: 20px (atas-bawah) auto (kiri-kanan) */
+        /* auto = otomatis pusatkan container di tengah layar */
+        border: 2px solid black;
+        /* Border hitam solid tebal 2 pixel di semua sisi */
+        background: white;
+        /* Background putih untuk container */
+        position: relative;
+        /* Posisi relatif = container berada di layer lebih tinggi dari overlay */
+        z-index: 1;
+        /* z-index: 1 = layer lebih tinggi dari body::before (yang z-index: 0) */
+        /* Jadi container putih muncul DI ATAS overlay gelap */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        /* Bayangan untuk efek container "mengambang" */
+        /* box-shadow: horizontal vertical blur color */
+        /* 0 = tidak bergeser horizontal (bayangan tepat di bawah) */
+        /* 10px = bergeser vertikal 10px ke bawah */
+        /* 30px = blur radius (seberapa kabur bayangan) */
+        /* rgba(0, 0, 0, 0.3) = hitam dengan transparansi 30% */
+    }
+    
+    
+        .header {
+            /* Bagian header/kepala halaman */
+            padding: 10px;
+            /* Jarak dalam 10 pixel */
+            display: flex;
+            /* Gunakan flexbox untuk layout */
+            justify-content: space-between;
+            /* Ratakan konten ke ujung kiri dan kanan */
+            align-items: center;
+            /* Pusatkan vertikal */
+        }
+
+        
+        .title-section {
+            /* Bagian judul utama */
+            display: flex;
+            /* Gunakan flexbox */
+            align-items: center;
+            /* Pusatkan vertikal */
+            padding: 15px;
+            /* Jarak dalam 15 pixel */
+            border-bottom: 2px solid black;
+            /* Garis bawah hitam 2 pixel */
+        }
+
+        .logo {
+            /* Container logo */
+            width: 80px;
+            /* Lebar 80 pixel */
+            height: 100px;
+            /* Tinggi 100 pixel */
+            margin-right: 20px;
+            /* Jarak kanan 20 pixel */
+            display: flex;
+            /* Gunakan flexbox */
+            align-items: center;
+            /* Pusatkan vertikal */
+            justify-content: center;
+            /* Pusatkan horizontal */
+            background: white;
+            /* Background putih */
+        }
+
+        .logo img {
+            /* Gambar logo */
+            width: 100%;
+            /* Lebar 100% dari container */
+            height: 100%;
+            /* Tinggi 100% dari container */
+            object-fit: contain;
+            /* Pertahankan aspek rasio gambar */
+        }
+
+        .title-text {
+            /* Container teks judul */
+            flex: 1;
+            /* Ambil sisa ruang yang tersedia */
+            text-align: center;
+            /* Teks rata tengah */
+        }
+
+        .title-text h1 {
+            /* Heading 1 - judul utama */
+            font-size: 24px;
+            /* Ukuran font 24 pixel */
+            font-weight: bold;
+            /* Teks tebal */
+            margin: 0;
+            /* Tidak ada margin */
+            letter-spacing: 2px;
+            /* Jarak antar huruf 2 pixel */
+        }
+
+        .title-text h2 {
+            /* Heading 2 - subjudul */
+            font-size: 20px;
+            /* Ukuran font 20 pixel */
+            font-style: italic;
+            /* Teks miring */
+            font-weight: normal;
+            /* Ketebalan normal (tidak tebal) */
+            margin: 5px 0 0 0;
+            /* Margin: 5px (atas) 0 (kanan) 0 (bawah) 0 (kiri) */
+        }
+
+        .content {
+            /* Container konten utama */
+            display: flex;
+            /* Gunakan flexbox */
+            border-bottom: 2px solid black;
+            /* Garis bawah hitam 2 pixel */
+        }
+
+        .sidebar {
+            /* Sidebar kiri dengan kategori */
+            width: 180px;
+            /* Lebar tetap 180 pixel */
+            border-right: 2px solid black;
+            /* Garis kanan hitam 2 pixel */
+            padding: 15px;
+            /* Jarak dalam 15 pixel */
+        }
+
+        .sidebar h3 {
+            /* Heading 3 di sidebar */
+            font-size: 12px;
+            /* Ukuran font 12 pixel */
+            font-weight: bold;
+            /* Teks tebal */
+            margin-bottom: 10px;
+            /* Jarak bawah 10 pixel */
+        }
+
+        .sidebar ul {
+            /* List di sidebar */
+            list-style: none;
+            /* Hilangkan bullet point */
+            padding: 0;
+            /* Tidak ada padding */
+            margin: 0;
+            /* Tidak ada margin */
+        }
+
+        .sidebar li {
+            /* Item list di sidebar */
+            font-size: 9px;
+            /* Ukuran font 10 pixel */
+            margin-bottom: 8px;
+            /* Jarak bawah 3 pixel */
+            line-height: 1.4;
+            /* Jarak antar baris 1.4x */
+        }
+
+        .main-content {
+            /* Area konten utama (tabel) */
+            flex: 1;
+            /* Ambil sisa ruang yang tersedia */
+            padding: 15px;
+            /* Jarak dalam 15 pixel */
+        }
+
+        .table-title {
+            /* Judul tabel */
+            text-align: center;
+            /* Teks rata tengah */
+            font-weight: bold;
+            /* Teks tebal */
+            font-size: 14px;
+            /* Ukuran font 14 pixel */
+            margin-bottom: 10px;
+            /* Jarak bawah 10 pixel */
+            background: white;
+            /* Background putih */
+        }
+
+        table {
+            /* Styling untuk elemen table */
+            width: 100%;
+            /* Lebar 100% dari container */
+            border-collapse: collapse;
+            /* Hilangkan jarak antar border cell */
+            font-size: 11px;
+            /* Ukuran font 11 pixel */
+        }
+
+        th {
+            /* Table header cell */
+            background: #d3d3d3;
+            /* Background abu-abu muda */
+            border: 1px solid black;
+            /* Border hitam 1 pixel */
+            padding: 5px;
+            /* Jarak dalam 5 pixel */
+            text-align: center;
+            /* Teks rata tengah */
+            font-weight: bold;
+            /* Teks tebal */
+        }
+
+        td {
+            /* Table data cell */
+            border: 1px solid black;
+            /* Border hitam 1 pixel */
+            padding: 5px;
+            /* Jarak dalam 5 pixel */
+            text-align: center;
+            /* Teks rata tengah */
+        }
+
+        td:first-child {
+            /* Cell pertama di setiap baris (nama kecamatan) */
+            text-align: left;
+            /* Teks rata kiri */
+            padding-left: 8px;
+            /* Jarak kiri 8 pixel */
+        }
+
+        tr:nth-child(even) {
+            /* Baris genap (2, 4, 6, dst) */
+            background: #f5f5f5;
+            /* Background abu-abu sangat muda (efek zebra) */
+        }
+
+        .footer {
+            /* Bagian footer/kaki halaman */
+            text-align: center;
+            /* Teks rata tengah */
+            padding: 15px;
+            /* Jarak dalam 15 pixel */
+        }
+
+        .footer-logo {
+            /* Container logo di footer */
+            margin-bottom: 5px;
+            /* Jarak bawah 5 pixel */
+        }
+
+        .footer-logo img {
+            /* Gambar logo di footer */
+            height: 50px;
+            /* Tinggi 50 pixel */
+        }
+
+        .footer-text {
+            /* Teks di footer */
+            font-size: 11px;
+            /* Ukuran font 11 pixel */
+            line-height: 1.5;
+            /* Jarak antar baris 1.5x */
+        }
+
+        .footer-text strong {
+            /* Teks tebal di footer */
+            display: block;
+            /* Tampilkan sebagai block (baris baru) */
+            margin-bottom: 3px;
+            /* Jarak bawah 3 pixel */
+        }
+    </style>
+</head>
+<body>
+    <!-- Body halaman - berisi semua konten yang tampil -->
+    
+    <div class="container">
+        <!-- Container utama yang membungkus semua konten -->
+        
+        <!-- ========== HEADER SECTION ========== -->
+        <div class="header">
+            <!--Bagian header-->
+        </div>
+
+        <!-- ========== TITLE SECTION ========== -->
+        <div class="title-section">
+            <!-- Bagian judul dengan logo dan teks -->
+            
+            <div class="logo">
+                <!-- Container logo -->
+                <img src="Logo-Bantul.jpg" alt="Logo Bantul"
+                <!-- Gambar logo -->
+                <!-- src="logo-bantul.png" = file logo Anda -->
+            </div>
+            
+            <div class="title-text">
+                <!-- Container teks judul -->
+                <h1>SISTEM INFORMASI STATISTIK</h1>
+                <!-- Judul utama dengan huruf besar -->
+                <h2>KABUPATEN BANTUL</h2>
+                <!-- Subjudul dengan huruf miring -->
+            </div>
+        </div>
+
+        <!-- ========== CONTENT SECTION ========== -->
+        <div class="content">
+            <!-- Container konten dengan sidebar dan tabel -->
+            
+            <!-- SIDEBAR KIRI -->
+            <div class="sidebar">
+                <!-- Sidebar dengan ringkasan Kabupaten Bantul -->
+                <h3>Tentang Kabupaten Bantul</h3>
+                <!-- Judul sidebar -->
+                <p>
+                    <!-- Paragraf berisi ringkasan informasi -->
+                    Kabupaten Bantul merupakan salah satu kabupaten di Provinsi Daerah Istimewa Yogyakarta yang terletak di bagian selatan Kota Yogyakarta.
+                    <!-- Kalimat 1: Lokasi umum Kabupaten Bantul -->
+                </p>
+                <p>
+                    Secara geografis, Kabupaten Bantul terletak antara 07°44'04" - 08°00'27" Lintang Selatan dan 110°12'34" - 110°31'08" Bujur Timur.
+                    <!-- Kalimat 2: Koordinat geografis yang spesifik -->
+                </p>
+                <p>
+                    Kabupaten ini memiliki semboyan pembangunan <strong>"PROJOTAMANSARI"</strong> yang merupakan singkatan dari <em>Produktif-Profesional, Ijo Royo-royo, Tertib, Aman, Sehat, dan Asri</em>.
+                    <!-- Kalimat 3: Semboyan pembangunan -->
+                    <!-- Tag <strong> = teks tebal untuk semboyan -->
+                    <!-- Tag <em> = teks miring untuk kepanjangan semboyan -->
+                </p>
+            </div>
+
+            <!-- MAIN CONTENT (TABEL) -->
+            <div class="main-content">
+                <!-- Area konten utama dengan tabel data -->
+                
+                <div class="table-title">Tabel Penduduk</div>
+                <!-- Judul tabel -->
+                
+                <table>
+                    <!-- Elemen tabel -->
+                    <thead>
+                        <!-- Table head = bagian kepala tabel -->
+                        <tr>
+                            <!-- Table row = satu baris -->
+                            <th>Kecamatan</th>
+                            <!-- Header kolom 1: Nama Kecamatan -->
+                            <th>Luas<br>Wilayah</th>
+                            <!-- Header kolom 2: Luas Wilayah -->
+                            <!-- Tag <br> = line break (pindah baris) -->
+                            <th>Jumlah<br>Penduduk</th>
+                            <!-- Header kolom 3: Jumlah Penduduk -->
+                            <th>Kepadatan<br>Penduduk</th>
+                            <!-- Header kolom 4: Kepadatan Penduduk -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table body = bagian isi/data tabel -->
+                        
+                        <!-- BARIS DATA KECAMATAN -->
+                        <!-- Setiap <tr> adalah satu baris data -->
+                        <!-- Setiap <td> adalah satu cell data -->
+                        
+                        <tr>
+                            <!-- Baris 1: Banguntapan -->
+                            <td>Banguntapan</td>
+                            <!-- Nama kecamatan -->
+                            <td>28,48</td>
+                            <!-- Luas wilayah dalam km² -->
+                            <td>127.029</td>
+                            <!-- Jumlah penduduk dalam jiwa -->
+                            <td>4.460,29</td>
+                            <!-- Kepadatan penduduk dalam jiwa/km² -->
+                        </tr>
+                        <tr>
+                            <!-- Baris 2: Sewon -->
+                            <td>Sewon</td>
+                            <td>27,16</td>
+                            <td>111.711</td>
+                            <td>4.113,14</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 3: Kasihan -->
+                            <td>Kasihan</td>
+                            <td>32,38</td>
+                            <td>117.287</td>
+                            <td>3.622,21</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 4: Bantul -->
+                            <td>Bantul</td>
+                            <td>21,95</td>
+                            <td>66.182</td>
+                            <td>3.015,13</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 5: Pleret -->
+                            <td>Pleret</td>
+                            <td>22,97</td>
+                            <td>51.820</td>
+                            <td>2.255,99</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 6: Piyungan -->
+                            <td>Piyungan</td>
+                            <td>28,93</td>
+                            <td>65.400</td>
+                            <td>2.260,80</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 7: Pandak -->
+                            <td>Pandak</td>
+                            <td>26,68</td>
+                            <td>48.850</td>
+                            <td>1.831,42</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 8: Jetis -->
+                            <td>Jetis</td>
+                            <td>24,78</td>
+                            <td>41.950</td>
+                            <td>1.692,81</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 9: Sedayu -->
+                            <td>Sedayu</td>
+                            <td>34,27</td>
+                            <td>55.320</td>
+                            <td>1.614,29</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 10: Bambanglipuro -->
+                            <td>Bambanglipuro</td>
+                            <td>23,64</td>
+                            <td>38.140</td>
+                            <td>1.613,34</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 11: Pundong -->
+                            <td>Pundong</td>
+                            <td>31,16</td>
+                            <td>46.720</td>
+                            <td>1.499,23</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 12: Pajangan -->
+                            <td>Pajangan</td>
+                            <td>32,04</td>
+                            <td>42.370</td>
+                            <td>1.322,50</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 13: Kretek -->
+                            <td>Kretek</td>
+                            <td>26,51</td>
+                            <td>30.620</td>
+                            <td>1.154,91</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 14: Sanden -->
+                            <td>Sanden</td>
+                            <td>24,91</td>
+                            <td>30.180</td>
+                            <td>1.211,36</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 15: Srandakan -->
+                            <td>Srandakan</td>
+                            <td>18,32</td>
+                            <td>31.082</td>
+                            <td>1.696,95</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 16: Imogiri -->
+                            <td>Imogiri</td>
+                            <td>54,49</td>
+                            <td>39.560</td>
+                            <td>726,04</td>
+                        </tr>
+                        <tr>
+                            <!-- Baris 17: Dlingo -->
+                            <td>Dlingo</td>
+                            <td>55,87</td>
+                            <td>37.048</td>
+                            <td>663,10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ========== FOOTER SECTION ========== -->
+        <div class="footer">
+            <!-- Bagian footer dengan logo dan informasi kontak -->
+            
+            <div class="footer-logo">
+                <!-- Container logo di footer -->
+                <img src="Logo-Bantul.jpg" alt="Logo Bantul" 
+                <!-- Gambar logo dengan tinggi 50px -->
+            </div>
+            
+            <div class="footer-text">
+                <!-- Container teks footer -->
+                <strong>Pemerintah Kabupaten Bantul</strong>
+                <!-- Nama instansi dengan teks tebal -->
+                Jl. Lingkar Timur, Manding, Trirenggo, Bantul, Daerah Istimewa Yogyakarta 55714 Telp (0274) 367501
+                <!-- Alamat dan nomor telepon -->
+            </div>
+        </div>
+    </div>
+    <!-- Penutup container -->
+</body>
+<!-- Penutup body -->
+</html>
+<!-- Penutup html -->
